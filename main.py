@@ -28,7 +28,7 @@ class MainWindow(QMainWindow):
             self.numObjectsLabel.setText(result[0])
 
     def browse_files(self):
-        fname=QFileDialog.getOpenFileName(self,'Select Image','E:\qt_programs\count\images','Images (*.png *.xmp *.jpg *.jpeg *.svg)')
+        fname=QFileDialog.getOpenFileName(self,'Select Image','.\images','Images (*.png *.xmp *.jpg *.jpeg *.svg)')
         if(fname[0]==''):
             return
         self.imgLabel:QLabel
