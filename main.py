@@ -1,8 +1,7 @@
 from PyQt5.QtCore import Qt
 from count import count
-import sys
-from PyQt5.QtWidgets import QApplication , QMainWindow , QFileDialog , QPushButton , QLabel , QTextEdit, QWidget 
-from PyQt5.QtGui import QDragEnterEvent, QDragMoveEvent, QDropEvent, QPixmap , QIcon
+from PyQt5.QtWidgets import QApplication , QMainWindow , QFileDialog , QPushButton , QLabel , QTextEdit, QWidget  
+from PyQt5.QtGui import QDragEnterEvent, QDragMoveEvent, QDropEvent, QPixmap , QIcon 
 from PyQt5.uic import loadUi
 
 class MainWindow(QMainWindow):
@@ -26,9 +25,10 @@ class MainWindow(QMainWindow):
         else:
             result=count(obj_name,self.image_path)
             self.numObjectsLabel.setText(result[0])
+            self.set_output_image()
 
     def browse_files(self):
-        fname=QFileDialog.getOpenFileName(self,'Select Image','.\images','Images (*.png *.xmp *.jpg *.jpeg *.svg)')
+        fname=QFileDialog.getOpenFileName(self,'Select Image','E:\qt_programs\count\images','Images (*.png *.xmp *.jpg *.jpeg *.svg)')
         if(fname[0]==''):
             return
         self.imgLabel:QLabel
@@ -64,7 +64,13 @@ class MainWindow(QMainWindow):
                 self.imgLabel.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
         self.imgLabel.setPixmap(scaled_pixmap)
 
-        
+    def set_output_image(self):
+        pixmap=QPixmap('images/output.png')
+        scaled_pixmap = pixmap.scaled(
+                self.imgLabel.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        self.output:QLabel
+        self.output.setPixmap(scaled_pixmap)
+        self.resize(self.imgLabel.frameGeometry().width()*2+20,self.frameGeometry().height())
 
 app=QApplication([])
 mainWindow=MainWindow()
